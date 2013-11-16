@@ -11,5 +11,7 @@
 *.lai
 *.la
 *.a
-/working/Makefile~
+/working/*~
 /working/nul
+/working/worker_pool_flymake.c
+/working/*#*
