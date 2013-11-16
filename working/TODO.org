@@ -1,0 +1,21 @@
+* organizational things
++ make a python script that auto-generates complete headers
+  + this will make life easier for testing -- our python script pulls out everything so that the test interface can see it, and the "real" header file contains the public interface
+
++ separate testing directory
+  + lets also have a python script to generate "complete" makefiles
+  + ie pull out all of the header files that are referenced and write dependencies accordingly (assuming that there's a .c corresponding to every .h)
+
++ maybe a python file to generate tests?
+  + ie we'd have something that looks like:
+{function_name:{'condition', (expr A), (expr B)}}
+ex:
+{'getPoolSize':{'equal', (getWorker(pool)), (releaseWorker(pool))}}
+
+
+* code things
++ make a separate file to do error handling
+  + at least a macro like "on_error(<func expr>, err_code, msg)"
+  + and then we could have some macros for the various possible messages
+  + and let's give the option to macro it off when we get out of debugging land
+

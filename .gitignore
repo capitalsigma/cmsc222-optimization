@@ -11,3 +11,5 @@
 *.lai
 *.la
 *.a
+/working/Makefile~
+/working/nul

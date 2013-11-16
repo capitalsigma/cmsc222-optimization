@@ -1,0 +1,3 @@
+* organizational things
++ make a python script that auto-generates complete headers
+  + this will make life easier for testing -- our python script pulls out everything so that the test interface can see it, and the "real" header file contains the public interface
