@@ -1,6 +1,6 @@
 /* Bubble sort code */
- 
 #include <stdio.h>
+#include <assert.h>
 #include "util.h"
 
 #define SMALL 1000         // 1K
@@ -8,12 +8,12 @@
 #define LARGE  100000    // 100k
 #define XLARGE  1000000  // 1M
 
-int main()
+int main(char* argv[], int argc)
 {
   int n = SMALL;
   int array[SMALL], c, d, swap;
   
-  make_array(n, array);
+  make_array(array, n);
  
   printf("Sorting %d integers\n You should try to time this part. \n", n);
   for (c = 0 ; c < ( n - 1 ); c++)
@@ -29,10 +29,9 @@ int main()
 	}
   }
  
-  printf("Verifying Sorted list in ascending order:\n");
- 
-  for ( c = 0 ; c < n-1 ; c++ )
-    if (array[c] > array[c+1])   printf("Whoops: error at position %d\n", c);
- 
+  assert(verify(array, n));
+  print_list(array, n, 80);
+  
+
   return 0;
 }
