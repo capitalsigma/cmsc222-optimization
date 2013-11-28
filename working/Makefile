@@ -1,7 +1,9 @@
-CHK_SOURCES= worker_pool.c worker_pool.h
+CHK_SOURCES=worker_pool.c 
+CFLAGS=-std=c99 -pthread
+CC=gcc 
 
 check-syntax:
-	gcc -o nul -S $(CHK_SOURCES)
+	$(CC) -o nul.out -S $(CHK_SOURCES) $(CFLAGS)
 
-worker_pool: $@.c $@.h
-	gcc -o $@ $@.c -ggdb
+worker_pool: worker_pool.c worker_pool.h
+	$(CC) -o $@.out $@.c $(CFLAGS) -ggdb

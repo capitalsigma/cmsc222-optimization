@@ -3,16 +3,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <assert.h>
 
 
 #include "worker_pool.h"
 
 /* note: add in error handling later in life */
 
-typedef struct {
+struct worker_pool {
 	sem_t mutex;
 	int count;
-} worker_pool;
+};
 
 worker_pool* initialize_pool(int pool_size) 
 {
@@ -26,6 +27,16 @@ worker_pool* initialize_pool(int pool_size)
 
 	return ret;
 }
+
+void free_pool(worker_pool *pool)
+{
+	if(!sem_destroy(&pool->mutex)){
+		/* err handing */
+	}
+	
+	free(pool);
+}
+	
 
 bool request_worker(worker_pool *pool)
 {
@@ -58,9 +69,3 @@ void return_worker(worker_pool *pool)
 	sem_post(&pool->mutex);
 }
 
-
-/* unit tests */
-int main(int argc, char* argv[])
-{
-	return;
-}

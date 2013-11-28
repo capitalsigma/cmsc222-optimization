@@ -11,7 +11,14 @@
 *.lai
 *.la
 *.a
-/working/*~
+*.out
+/*.out
+/*/*.out
+/*~
+/*/*~
+/*/*/*~
+
 /working/nul
 /working/worker_pool_flymake.c
 /working/*#*
+
