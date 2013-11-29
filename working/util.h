@@ -1,11 +1,17 @@
-/* Utilities for making life easier -- mostly macros */
+/* Utilities for making life easier */
 #pragma once
 #include <stdbool.h>
 
-#define MACRO_WRAP(exn) do { exn } while(0)
+#define MACRO_WRAP(exp) do { exp; } while(0)
 
-void make_array(int array[], int size);
+/* debugging */
+#define PV(exp) MACRO_WRAP(printf(#exp": %i\n", exp))
+//#define PV(exp) MACRO_WRAP()
 
-bool verify(int array[], int size);
+typedef enum {SHIFT_MOD} algo_t;
 
-void print_list(int array[], int size, int line_length);
+void make_array(int (*array)[], int size, algo_t algo);
+
+bool verify(int (*array)[], int size);
+
+void print_array(int (*array)[], int size, int line_length);

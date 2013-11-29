@@ -1,7 +1,7 @@
 CHK_SOURCES=bsort.c  $(DEPS) $(DEPS_HEADERS)
 DEPS=worker_pool.c util.c
 DEPS_HEADERS=worker_pool.h util.h
-CFLAGS=-std=c99 -pthread
+CFLAGS=-std=c11 -pthread -Wall
 CC=gcc 
 
 check-syntax:

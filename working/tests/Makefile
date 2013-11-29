@@ -1,5 +1,6 @@
 CHK_SOURCES=worker_pool_tests.c
-DEPS=../worker_pool.c ../worker_pool.h
+SRCS=../worker_pool.c ../util.c
+HEADERS= ../worker_pool.h ../util.h 
 CFLAGS=-std=c99 -pthread
 CC=gcc 
 
@@ -10,5 +11,5 @@ check-syntax:
 # 	$(CC) -o $@ $@.c $(DEPS)  $(CFLAGS) -ggdb
 
 
-worker_pool_tests: worker_pool_tests.c $(DEPS)
-	$(CC) -o $@.out $@.c $(DEPS) $(CFLAGS)
+% : %.c $(SRCS) $(HEADERS)
+	$(CC) -o $@.out $@.c $(SRCS) $(CFLAGS)

@@ -1,11 +1,7 @@
-#include <assert.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include "testing.h"
 #include "../worker_pool.h"
-#define ASSERT(exn) assert(exn); printf("%s (%i): PASS\n", #exn, __LINE__)
 
-
-/* tests are all macros */
 void test_worker_pool(void)
 {
 	worker_pool *pool;
