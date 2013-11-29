@@ -1,6 +1,6 @@
 /* Bubble sort code */
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
 
 #include "util.h"
 #include 

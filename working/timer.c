@@ -1,7 +1,29 @@
+#include <assert.h>
+#include <stdlib.h>
+#include <time.h>
 
-static inline unsigned long long get_ticks()
+#include "timer.h"
+
+/* NOTE: LOOKS LIKE THIS IS A REALLY BAD IDEA, 
+   APPARENTLY IT MEASURES WALL TIME, CHANGE THIS  */
+typedef struct {
+	timeval start;
+	timeval end;
+} timer;
+
+timer *init() 
 {
-	unsigned long long ret;
-	__asm__ __volatile__ ("rdtsc" : "=A" (ret));
-	return ret;
-}B
+	timer *t = malloc(sizeof(timer));
+
+	t->start = NULL;
+	t->end = NULL;
+}
+
+init start(*timer t)
+{
+	/* we should only ever start unstarted timers */
+	assert(!t->start);
+
+	t->start 
+
+		
