@@ -8,8 +8,8 @@ CC=gcc
 check-syntax:
 	$(CC) -o nul.out -S $(CHK_SOURCES) $(CFLAGS)
 
-bsort : $(DEPS) $(DEPS_HEADERS)
-	$(CC) -o $@.out $@.c $(DEPS) $(CFLAGS) -DDEBUG
+bsort-% : bsort.c $(DEPS) $(DEPS_HEADERS)
+	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-,,$@_SIZE)
 
 
 .PHONY: clean

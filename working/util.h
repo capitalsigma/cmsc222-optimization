@@ -7,6 +7,13 @@
 /* debugging */
 #define PV(exp) MACRO_WRAP(printf(#exp": %i\n", exp))
 
+#ifdef VERBOSE_DEBUG
+#define DEBUG
+#define NOTIFY(exp) MACRO_WRAP(exp)
+#else 
+#define NOTIFY(exp) MACRO_WRAP()
+#endif
+
 /* logging */
 #ifdef DEBUG
 #define LOGGER() MACRO_WRAP(printf("Entering %s\n", __func__))

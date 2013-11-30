@@ -16,7 +16,7 @@ void make_shift_mod_array(int (*array)[], int size)
 
 void make_array(int (*array)[], int size, algo_t algo) 
 {
-	printf("Generating %d integers\n", size); 
+	NOTIFY(printf("Generating %d integers\n", size));
 
 	/* array of function pointers makes our life easier */
 	void (*f[1]) (int (*a)[], int s) =
@@ -30,16 +30,16 @@ void make_array(int (*array)[], int size, algo_t algo)
 
 bool verify(int (*array)[], int size)
 {
-  printf("Verifying Sorted list in ascending order:\n");
+	NOTIFY(printf("Verifying Sorted list in ascending order:\n"));
  
-  for (int c = 0 ; c < size-1 ; c++ ) {
-	  if ((*array)[c] > (*array)[c+1]) {
-		  printf("Whoops: error at position %d\n", c);
-		  return false;
-	  }
-  }
-  printf("Array correctly sorted.\n");
-  return true;
+	for (int c = 0 ; c < size-1 ; c++ ) {
+		if ((*array)[c] > (*array)[c+1]) {
+			printf("Whoops: error at position %d\n", c);
+			return false;
+		}
+	}
+	NOTIFY(printf("Array correctly sorted.\n"));
+	return true;
 }
 
 void print_array(int (*array)[], int size, int line_length)

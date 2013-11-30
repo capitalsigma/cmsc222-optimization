@@ -13,4 +13,4 @@ check-syntax:
 # 	$(CC) -o $@ $@.c $(DEPS)  $(CFLAGS) -ggdb
 
 monitor util perf worker_pool : $(SRCS) $(HEADERS)
-	$(CC) -o $@_tests.out $@_tests.c ../$@.c $(CFLAGS)
+	$(CC) -o $@_tests.out $@_tests.c ../$@.c $(CFLAGS) && ./$@_tests.out

@@ -110,7 +110,7 @@ void rusage_sub(rusage *a, rusage *b, rusage *res)
 	res->ru_nivcsw = b->ru_nivcsw - a->ru_nivcsw;
 }
 
-/* verbosity = SILENT, QUET, VERBOSE
+/* verbosity = SILENT, QUET, VERBOSE */
 /* 0: just print user CPU time */
 /* 1: print user CPU time + system CPU time */
 /* 2: print everything */
@@ -127,7 +127,7 @@ void monitor_print_stats(monitor *m, verbosity v)
 
 	print_time(diff.ru_utime, true);
 	
-	if(v != SILENT){
+	if(v > SILENT){
 		printf("System CPU time: ");
 		print_time(diff.ru_stime, true);
 	}

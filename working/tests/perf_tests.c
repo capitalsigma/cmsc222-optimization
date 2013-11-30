@@ -52,13 +52,13 @@ void test_monitor(monitor_target who, bool all_verbosities, bool threaded)
 	monitor_end(m);
 
 	if(all_verbosities){
-		monitor_print_stats(m, 0);
+		monitor_print_stats(m, SILENT);
 		SMALL_SEP();
-		monitor_print_stats(m, 1);
+		monitor_print_stats(m, QUIET);
 		SMALL_SEP();
 	}
 
-	monitor_print_stats(m, 2);
+	monitor_print_stats(m, VERBOSE);
 	
 	monitor_free(m);
 }
