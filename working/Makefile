@@ -11,6 +11,9 @@ check-syntax:
 bsort-global-% : bsort-global.c $(DEPS) $(DEPS_HEADERS)
 	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-global-,,$@_SIZE)
 
+bsort-malloc-% : bsort-malloc.c $(DEPS) $(DEPS_HEADERS)
+	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-malloc-,,$@_SIZE) 
+
 bsort-% : bsort.c $(DEPS) $(DEPS_HEADERS)
 	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-,,$@_SIZE)
 

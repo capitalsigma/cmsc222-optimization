@@ -1,0 +1,79 @@
+\documentclass{article}
+
+%\usepackage{natbib}
+\usepackage[square,sort,comma,numbers]{natbib}
+
+\begin{document}
+
+\title{A Comparison of Parallel Parallel Integer Sorting Algoritms}
+\author{Patrick Collins}
+\date{December 3, 2013}
+\maketitle
+
+% \begin{abstract}
+% Abstract goes here...
+% \end{abstract}
+
+\section{Introduction}
+
+\section{Implementation}
+Talk about stuff bar
+\subsection{Storage Durations}
+
+Before implementing any sorting algorithm, it is necessary to
+determine the most effective way to store the data to be
+sorted. The C11 standard defines four diferent storage durations:
+static, automatic, thread and allocated (\cite[\S 6.2.4]{CStd}).
+Thread variables are new in C11 and irrelevant for our purposes, since they cannot be
+accessed from outside of the thread in which they are declared. That
+leaves three candidate storage durations: static, automatic and
+allocated. Memory with static duration is allocated either when a
+variable is declared outside of a
+function, or when a variable is declared inside of a function with the \texttt{static}
+keyword. Automatic memory is allocated when a varaible is declared
+inside of a function without the \texttt{static} keyword, and memory
+with the `allocated` storage duration is allocated with the
+\texttt{malloc()} function or similar.
+
+%types of memory? i don't know what language to use here
+The C11 standard is silent, however, on how these different types of
+memory are implemented. While allocated memory is most naturally
+associated with the heap and automatic memory with the stack, the C11
+standard does not contain the words ``stack'' or ``heap,'' leaving the
+decision of how to implement each type to the compiler. In order to
+determine the relative efficiencies of each type, then, it is
+necessary to compare each on a realistic workload.
+
+As a baseline, the single-threaded bubble sort was used to compare the
+use of an integer array declared locally in the \texttt{main()}
+function, an integer array declared in the global scope, and an
+integer array allocated with the \texttt{malloc()} function. The
+source code for each configuration is available in \textit{bsort.c},
+\textit{bsort-global.c} and \textit{bsort-malloc.c}. 
+
+The results are as follows:
+\begin{center}
+\begin{tabular}{lllll}
+ Implementation  &  Size & Average  &  Median     &  Standard Deviation             \\
+ bsort           &  small    &  0.2238 s   &  0.2182 s            &  0.0093 s  \\
+ bsort           &  medium   &  0.2220 s   &  0.2180 s            &  0.0085 s  \\
+ bsort           &  large    &  23.4886 s  &  23.5006 s           &  0.6830 s  \\
+ bsort global    &  small    &  0.2475 s   &  0.3389 s            &
+ 0.1960 s  \\
+bsort global    &  large    &  30.6455 s  &  30.6182 s           &  0.4994 s  \\
+ bsort global    &  medium   &  0.3068 s   &  0.3111 s            &  0.0131 s  \\
+ bsort malloc    &  small    &  0.2854 s   &  0.3940 s            &  0.1898 s  \\
+ bsort malloc    &  small    &  0.3429 s   &  0.4268 s            &  0.1703 s  \\
+ bsort malloc    &  medium   &  0.3300 s   &  0.3306 s            &
+ 0.0132 s  \\
+bsort malloc    &  large    &  32.0951 s  &  32.1063 s           &  0.4550 s  \\
+\end{tabular}
+\end{center}
+
+
+\bibliography{writeup}
+\bibliographystyle{acm}
+\nocite{*}
+
+
+\end{document}

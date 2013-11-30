@@ -1,7 +1,6 @@
-for VAR in SMALL MEDIUM LARGE XLARGE
+for VAR in SMALL MEDIUM LARGE
 do
-	make -C ../ bsort-$VAR
-	./run_driver.py ../bsort-$VAR.out 100 
+	./comp-and-run.sh $1-$VAR 100
 done
 	
 	

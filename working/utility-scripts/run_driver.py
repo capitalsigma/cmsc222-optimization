@@ -18,7 +18,8 @@ def make_timestamp(fmt):
 
 
 def set_file_name(ex_path):
-    return "{}{}".format(ex_path, make_timestamp(FILE_NAME_FORMAT))
+    return "{}{}".format(ex_path.lstrip('../'),
+                         make_timestamp(FILE_NAME_FORMAT))
 
 
 def run_timestamp():
@@ -35,5 +36,7 @@ def header(ex_path):
 ex_path, runs = argv[1:]
 f = open(set_file_name(ex_path), "w")
 p = Pool(POOL_SIZE)
+print("Starting pool.")
 ans = p.map(do_run, range(0, int(runs)))
+print("Done, about to write to {}".format(set_file_name(ex_path)))
 f.write('\n'.join(ans))
