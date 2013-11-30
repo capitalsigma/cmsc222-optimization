@@ -1,15 +1,16 @@
-CHK_SOURCES=worker_pool_tests.c
-SRCS=../worker_pool.c ../util.c
-HEADERS= ../worker_pool.h ../util.h 
+CHK_SOURCES:=$(wildcard *.c)
+#SRCS=../worker_pool.c ../util.c
+SRCS=$(wildcard ../*.c)
+#HEADERS= ../worker_pool.h ../util.h 
+HEADERS:=$(wildcard ../*.h)
 CFLAGS=-std=c99 -pthread
 CC=gcc 
 
 check-syntax:
-	$(CC) -o nul.out -S $(CHK_SOURCES) $(CFLAGS)
+	$(CC) $(CHK_SOURCES) $(CFLAGS) -fsyntax-only 
 
 # check_worker_pool: check_worker_pool.c  $(DEPS)
 # 	$(CC) -o $@ $@.c $(DEPS)  $(CFLAGS) -ggdb
 
-
-% : %.c $(SRCS) $(HEADERS)
-	$(CC) -o $@.out $@.c $(SRCS) $(CFLAGS)
+monitor util perf worker_pool : $(SRCS) $(HEADERS)
+	$(CC) -o $@_tests.out $@_tests.c ../$@.c $(CFLAGS)

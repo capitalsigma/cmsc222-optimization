@@ -6,7 +6,14 @@
 
 /* debugging */
 #define PV(exp) MACRO_WRAP(printf(#exp": %i\n", exp))
-//#define PV(exp) MACRO_WRAP()
+
+/* logging */
+#ifdef DEBUG
+#define LOGGER() MACRO_WRAP(printf("Entering %s\n", __func__))
+#else
+#define LOGGER() MACRO_WRAP()
+#endif
+
 
 typedef enum {SHIFT_MOD} algo_t;
 
