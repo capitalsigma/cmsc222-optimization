@@ -8,6 +8,9 @@ CC=gcc
 check-syntax:
 	$(CC) -o nul.out -S $(CHK_SOURCES) $(CFLAGS)
 
+bsort-global-% : bsort-global.c $(DEPS) $(DEPS_HEADERS)
+	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-global-,,$@_SIZE)
+
 bsort-% : bsort.c $(DEPS) $(DEPS_HEADERS)
 	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-,,$@_SIZE)
 
