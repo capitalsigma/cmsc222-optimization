@@ -7,19 +7,19 @@
 #define MAX_INT_LEN 15
 
 
-void make_shift_mod_array(int (*array)[], int size)
+void make_shift_mod_array(int **array, int size)
 {
 	for (int i = 0; i < size; i++){ 
 		(*array)[i] = (i << 6) % (17*17);		
 	}
 }
 
-void make_array(int (*array)[], int size, algo_t algo) 
+void make_array(int **array, int size, algo_t algo) 
 {
 	NOTIFY(printf("Generating %d integers\n", size));
 
 	/* array of function pointers makes our life easier */
-	void (*f[1]) (int (*a)[], int s) =
+	void (*f[1]) (int **a, int s) =
 		{
 			make_shift_mod_array
 		};
@@ -28,7 +28,7 @@ void make_array(int (*array)[], int size, algo_t algo)
 }
 
 
-bool verify(int (*array)[], int size)
+bool verify(int **array, int size)
 {
 	NOTIFY(printf("Verifying Sorted list in ascending order:\n"));
  
@@ -42,7 +42,7 @@ bool verify(int (*array)[], int size)
 	return true;
 }
 
-void print_array(int (*array)[], int size, int line_length)
+void print_array(int **array, int size, int line_length)
 {
 	char to_print[MAX_INT_LEN];
 	int new_word, current_line = 0;
@@ -57,4 +57,4 @@ void print_array(int (*array)[], int size, int line_length)
 		printf("%s ", to_print);
 	}
 	printf("\n");
-}
+ }

@@ -5,42 +5,46 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MALLOC
-
 #include "util.h"
 #include "error.h"
 #include "perf.h"
 #include "array_size.h"
 #include "worker_pool.h"
 
-void merge(int *array, int lo, int mid, int hi)
+void merge(int **array, int lo, int mid, int hi)
 {
-	LOGGER();
+	/* LOGGER(); */
 	int *tmp;
-	HANDLE((tmp = malloc(sizeof(int) * (hi - lo))));
+	HANDLE(!(tmp = malloc(sizeof(int) * ((hi - lo) + 1))));
 	assert(tmp);
-
-	NOTIFY(PV(lo);PV(hi);PV(mid));
-
+	
 	/* i is our index for the left half */
 	/* j is for the right half */
-	/* k is for the temporary sorting array */
-	int i = lo, j = mid, k = 0;
-	NOTIFY(PV(i);PV(j););
-	while (i <= mid && j < hi) {
-		NOTIFY(PV(i);PV(j););
-		tmp[k++] = array[i] < array[j] ? array[i++] : array[j++];
+	/* k is for the temporary sorting (*array) */
+	int i = lo, j = mid + 1, k = 0;
+	while (i <= mid && j <= hi) {
+		tmp[k++] = (*array)[i] < (*array)[j] ? (*array)[i++] : (*array)[j++];
+	}
+	
+	/* PV(i); PV(j); */
+	while(i <= mid) {		
+		tmp[k++] = (*array)[i++];
+	}
+	while(j <= hi) {
+		tmp[k++] = (*array)[j++];
 	}
 
-	/* NOTIFY(PV(tmp[0]);PV(tmp[k]);PV(array[lo]);PV(&array);); */
 	/* copy back */
-	memcpy((array + lo), tmp, k * sizeof(int));
+	memcpy(((*array) + lo), tmp, k * sizeof(int));
+	/* for(int m = 0; m < k; m++){ */
+	/* 	(*array)[lo + m] = tmp[m]; */
+	/* } */
 	free(tmp);
 }
 
-void mergesort(int *array, int lo, int hi)
+void mergesort(int **array, int lo, int hi)
 {
-	LOGGER();
+	/* LOGGER(); */
 	if (lo < hi){
 		int mid = (hi + lo) / 2;
 		mergesort(array, lo, mid);
@@ -49,10 +53,10 @@ void mergesort(int *array, int lo, int hi)
 	}
 }
 
-void msort(int *array, int size)
+void msort(int **array, int size)
 {
 	LOGGER();
-	mergesort(array, 0, size);
+	mergesort(array, 0, size - 1);
 }
 
 
@@ -60,25 +64,22 @@ int main(int argc, char *argv[])
 {
   int n = ARRAY_SIZE;
   int *array;
-  HANDLE(array = malloc(n * sizeof(int))); 
-  NOTIFY(PV(array));
+  HANDLE(!(array = malloc(n * sizeof(int)))); 
   monitor *m;
   
-  make_array(array, n, ARRAY_ALGO); 
-  NOTIFY(print_array(array, n, OUT_LINE_SIZE));
-  NOTIFY(PV(array));
+  make_array(&array, n, ARRAY_ALGO); 
+  NOTIFY(print_array(&array, n, OUT_LINE_SIZE));
 
   m = monitor_init(SELF);
   monitor_start(m);
 
-  NOTIFY(PV(array));
-
-  msort(array, n);
+  msort(&array, n);
   
   monitor_end(m);
  
-  assert(verify(array, n));
-  /* print_array(&array, n, OUT_LINE_SIZE); */
+  NOTIFY(print_array(&array, n, OUT_LINE_SIZE));
+  assert(verify(&array, n));
+
   
   monitor_print_stats(m, VERBOSE);
 

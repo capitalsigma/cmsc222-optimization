@@ -26,6 +26,8 @@
 #define LARGE  100000    // 100k
 #define XLARGE  1000000  // 1M
 
+typedef enum {SHIFT_MOD} algo_t;
+
 #define OUT_LINE_SIZE 80
 #define ARRAY_ALGO SHIFT_MOD
 
@@ -49,3 +51,10 @@
 /* #if !ARRAY_SIZE */
 /* #error You need to pass an array size to the compiler */
 /* #endif */
+
+
+void make_array(int **array, int size, algo_t algo);
+
+bool verify(int **array, int size);
+
+void print_array(int **array, int size, int line_length);

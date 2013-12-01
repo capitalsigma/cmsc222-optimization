@@ -11,7 +11,7 @@ check-syntax:
 	$(CC) -o nul.out -S $(CHK_SOURCES) $(CFLAGS)
 
 mergesort-% : 
-	$(CC) -o $@-$(1).out $@.c $(MALLOC_DEPS) $(CFLAGS) -D$(1)_SIZE -DVERBOSE_DEBUG
+	$(CC) -o $@-$(1).out $@.c $(DEPS) $(CFLAGS) -D$(1)_SIZE 
 
 bsort-% : 
 	$(CC) -o $@-$(1).out $@.c $(DEPS) $(CFLAGS) -D$(1)_SIZE
