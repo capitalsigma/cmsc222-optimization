@@ -1,5 +1,6 @@
 # CHK_SOURCES=bsort.c $(DEPS) $(DEPS_HEADERS)
 DEPS=util.c perf.c
+MALLOC_DEPS=util-malloc.c perf.c
 # DEPS_HEADERS=worker_pool.h util.h perf.h
 CFLAGS=-ggdb -std=c11 -pthread -Wall
 CC=gcc 
@@ -8,6 +9,9 @@ size_macro = $(lastword $(subst -, ,$(1)))_SIZE
 
 check-syntax:
 	$(CC) -o nul.out -S $(CHK_SOURCES) $(CFLAGS)
+
+mergesort-% : 
+	$(CC) -o $@-$(1).out $@.c $(MALLOC_DEPS) $(CFLAGS) -D$(1)_SIZE -DVERBOSE_DEBUG
 
 bsort-% : 
 	$(CC) -o $@-$(1).out $@.c $(DEPS) $(CFLAGS) -D$(1)_SIZE

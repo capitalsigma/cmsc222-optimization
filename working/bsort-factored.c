@@ -11,8 +11,6 @@
 /* note: see http://en.cppreference.com/w/c/atomic */
 void bsort(int (*array)[], int n)
 {
-	int tmp_arr[n];
-	tmp_arr = (*array);
 	int c, d, swap;
   for (c = 0 ; c < ( n - 1 ); c++)
   {
