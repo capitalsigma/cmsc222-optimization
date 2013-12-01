@@ -1,5 +1,4 @@
 /* Bubble sort code */
-/* we have to define this before we import anything */
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,12 +10,14 @@
 #include "array_size.h"
 #include "worker_pool.h"
 
+int tmp[ARRAY_SIZE] = {0}; 
+
 void merge(int **array, int lo, int mid, int hi)
 {
 	/* LOGGER(); */
-	int *tmp;
-	HANDLE(!(tmp = malloc(sizeof(int) * ((hi - lo) + 1))));
-	assert(tmp);
+	/* int *tmp; */
+	/* handle(!(tmp = malloc(sizeof(int) * ((hi - lo) + 1)))); */
+	/* assert(tmp); */
 	
 	/* i is our index for the left half */
 	/* j is for the right half */
@@ -39,7 +40,7 @@ void merge(int **array, int lo, int mid, int hi)
 	/* for(int m = 0; m < k; m++){ */
 	/* 	(*array)[lo + m] = tmp[m]; */
 	/* } */
-	free(tmp);
+	/* free(tmp); */
 }
 
 void mergesort(int **array, int lo, int hi)

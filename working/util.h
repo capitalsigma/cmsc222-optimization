@@ -21,10 +21,11 @@
 #define LOGGER() MACRO_WRAP()
 #endif
 
-#define SMALL 1000         // 1K
-#define MEDIUM  10000      // 10K
-#define LARGE  100000    // 100k
-#define XLARGE  1000000  // 1M
+#define VERYSMALL 1000 			/* testing purposes only */
+#define SMALL 16384 			/* 2^14 */
+#define MEDIUM  262144			/* 2^18 */
+#define LARGE  4194304			/* 2^22 */
+#define XLARGE   67108864		  /* 2^26 */
 
 typedef enum {SHIFT_MOD} algo_t;
 
