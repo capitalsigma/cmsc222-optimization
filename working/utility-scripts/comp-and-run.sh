@@ -1,2 +1,2 @@
-make -C ../ bsort-$1
-./run_driver.py ../bsort-$1.out 100 
+make -C ../ bsort-$1 1=$2
+./run_driver.py ../bsort-$1-$2.out 100 

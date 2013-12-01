@@ -5,24 +5,16 @@
 
 #include "util.h"
 #include "perf.h"
+#include "array_size.h"
 
-#define SMALL 1000         // 1K
-#define MEDIUM  10000      // 10K
-#define LARGE  100000    // 100k
-#define XLARGE  1000000  // 1M
-
-#define OUT_LINE_SIZE 80
-#define ARRAY_ALGO SHIFT_MOD
-
-
-
-/* note: see http://en.cppreference.com/w/c/atomic */
 
 int main(int argc, char* argv[])
 {
-  int n = ARRAY_SIZE;
-  int array[ARRAY_SIZE], c, d, swap;
-  monitor *m;
+	int n = ARRAY_SIZE;
+	int array[ARRAY_SIZE];
+	int (*arrayp)[] = array;
+	int c, d, swap;
+	monitor *m;
   
   make_array(&array, n, ARRAY_ALGO); 
   NOTIFY(print_array(&array, n, OUT_LINE_SIZE));
@@ -30,15 +22,16 @@ int main(int argc, char* argv[])
   m = monitor_init(SELF);
   monitor_start(m);
 
+
   for (c = 0 ; c < ( n - 1 ); c++)
   {
 	  for (d = 0 ; d < n - c - 1; d++)
 	  {
-		  if (array[d] > array[d+1]) /* For decreasing order use < */
+		  if ((*arrayp)[d] > (*arrayp)[d+1]) /* For decreasing order use < */
 		  {
-			  swap       = array[d];
-			  array[d]   = array[d+1];
-			  array[d+1] = swap;
+			  swap       = (*arrayp)[d];
+			  (*arrayp)[d]   = (*arrayp)[d+1];
+			  (*arrayp)[d+1] = swap;
 		  }
 	  }
   }

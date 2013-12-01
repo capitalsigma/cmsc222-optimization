@@ -1,21 +1,25 @@
-CHK_SOURCES=bsort.c $(DEPS) $(DEPS_HEADERS)
-DEPS=worker_pool.c util.c perf.c
-DEPS_HEADERS=worker_pool.h util.h perf.h
+# CHK_SOURCES=bsort.c $(DEPS) $(DEPS_HEADERS)
+DEPS=util.c perf.c
+# DEPS_HEADERS=worker_pool.h util.h perf.h
 CFLAGS=-ggdb -std=c11 -pthread -Wall
-DEBUG_FLAGS =
 CC=gcc 
+
+size_macro = $(lastword $(subst -, ,$(1)))_SIZE
 
 check-syntax:
 	$(CC) -o nul.out -S $(CHK_SOURCES) $(CFLAGS)
 
-bsort-global-% : bsort-global.c $(DEPS) $(DEPS_HEADERS)
-	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-global-,,$@_SIZE)
+bsort-% : 
+	$(CC) -o $@-$(1).out $@.c $(DEPS) $(CFLAGS) -D$(1)_SIZE
 
-bsort-malloc-% : bsort-malloc.c $(DEPS) $(DEPS_HEADERS)
-	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-malloc-,,$@_SIZE) 
+# bsort-global-% : bsort-global.c $(DEPS) $(DEPS_HEADERS)
+# 	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-global-,,$@_SIZE)
 
-bsort-% : bsort.c $(DEPS) $(DEPS_HEADERS)
-	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-,,$@_SIZE)
+# bsort-malloc-% : bsort-malloc.c $(DEPS) $(DEPS_HEADERS)
+# 	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-malloc-,,$@_SIZE) 
+
+# bsort-% : bsort.c $(DEPS) $(DEPS_HEADERS)
+# 	$(CC) -o $@.out $< $(DEPS) $(CFLAGS) -D$(subst bsort-,,$@_SIZE)
 
 
 .PHONY: clean

@@ -21,6 +21,34 @@
 #define LOGGER() MACRO_WRAP()
 #endif
 
+#define SMALL 1000         // 1K
+#define MEDIUM  10000      // 10K
+#define LARGE  100000    // 100k
+#define XLARGE  1000000  // 1M
+
+#define OUT_LINE_SIZE 80
+#define ARRAY_ALGO SHIFT_MOD
+
+#define ARRAY_SIZE 0
+
+/* now we can compile bsort-small, bsort-large, etc by passing arguments */
+/* to gcc */
+/* #ifdef SMALL_SIZE */
+/* #define ARRAY_SIZE SMALL */
+/* #endif */
+/* #ifdef MEDIUM_SIZE */
+/* #define ARRAY_SIZE MEDIUM */
+/* #endif */
+/* #ifdef LARGE_SIZE  */
+/* #define ARRAY_SIZE LARGE */
+/* #endif */
+/* #ifdef XLARGE_SIZE  */
+/* #define ARRAY_SIZE XLARGE */
+/* #endif */
+
+/* #if !ARRAY_SIZE */
+/* #error You need to pass an array size to the compiler */
+/* #endif */
 
 typedef enum {SHIFT_MOD} algo_t;
 

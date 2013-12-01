@@ -2,6 +2,7 @@
 
 %\usepackage{natbib}
 \usepackage[square,sort,comma,numbers]{natbib}
+\usepackage{parskip}
 
 \begin{document}
 
@@ -18,7 +19,11 @@
 
 \section{Implementation}
 Talk about stuff bar
-\subsection{Storage Durations}
+
+\subsection{Program Structure}
+Blah blah
+
+\subsubsection{Storage Duration}
 
 Before implementing any sorting algorithm, it is necessary to
 determine the most effective way to store the data to be
@@ -33,7 +38,7 @@ function, or when a variable is declared inside of a function with the \texttt{s
 keyword. Automatic memory is allocated when a varaible is declared
 inside of a function without the \texttt{static} keyword, and memory
 with the `allocated` storage duration is allocated with the
-\texttt{malloc()} function or similar.
+\texttt{malloc()} function or similar. \smallskip
 
 %types of memory? i don't know what language to use here
 The C11 standard is silent, however, on how these different types of
@@ -48,8 +53,8 @@ As a baseline, the single-threaded bubble sort was used to compare the
 use of an integer array declared locally in the \texttt{main()}
 function, an integer array declared in the global scope, and an
 integer array allocated with the \texttt{malloc()} function. The
-source code for each configuration is available in \textit{bsort.c},
-\textit{bsort-global.c} and \textit{bsort-malloc.c}. 
+source code for each configuration is available in \texttt{bsort.c},
+\texttt{bsort-global.c} and \texttt{bsort-malloc.c}. \bigskip
 
 The results are as follows:
 \begin{center}
@@ -62,14 +67,92 @@ The results are as follows:
  0.1960 s  \\
 bsort global    &  large    &  30.6455 s  &  30.6182 s           &  0.4994 s  \\
  bsort global    &  medium   &  0.3068 s   &  0.3111 s            &  0.0131 s  \\
- bsort malloc    &  small    &  0.2854 s   &  0.3940 s            &  0.1898 s  \\
  bsort malloc    &  small    &  0.3429 s   &  0.4268 s            &  0.1703 s  \\
  bsort malloc    &  medium   &  0.3300 s   &  0.3306 s            &
  0.0132 s  \\
 bsort malloc    &  large    &  32.0951 s  &  32.1063 s           &  0.4550 s  \\
 \end{tabular}
+\end{center}\bigskip
+
+This indicates that using an array stored in a local variable with automatic storage
+duration provides a significant performance advantage over using
+either a global variable or dynamically allocated memory.
+
+% why do we care that they're not implemented with a stack?
+\subsubsection{Function Call Overhead}
+With some of the algorithms discussed later -- in particular,
+quicksort and mergesort -- there is no way to avoid the overhead of
+many function calls. In an iterative algorithm like bubble sort,
+however, it is necessary to choose between inserting the code directly inside
+the \texttt{main()} function or splitting it off into a separate
+function. The C11 standard again does not specify that functions be
+implemented with a stack (\cite[\S 6.7.6.3]{CStd}), although it does
+include the \texttt{inline} keyword (\cite[\S 6.4.1, \S
+6.7.4]{CStd}). The GCC Manual asserts that \texttt{inline} functions
+are just as fast as writing a macro to manually inline the code in
+question (\cite[\S 6.39]{GCCMan}).
+
+A comparison of the three options is below:
+
+\begin{center}
+\begin{tabular}{lllll}
+ Implementation  &  Average  & Size &  Median     &  Standard Deviation  \\
+ bsort           &  small    &  0.2238 s   &  0.2182 s            &  0.0093 s  \\
+ bsort           &  medium   &  0.2220 s   &  0.2180 s            &  0.0085 s  \\
+ bsort           &  large    &  23.4886 s  &  23.5006 s           &  0.6830 s  \\
+ bsort factored  &  small    &  0.1757 s   &  0.1966 s            &  0.1737 s  \\
+ bsort factored  &  medium   &  0.2576 s   &  0.2586 s            &
+ 0.0056 s  \\
+bsort factored  &  large    &  26.2215 s  &  26.1377 s           &  0.3313 s  \\
+ bsort inline    &  small    &  0.1976 s   &  0.3117 s            &  0.1594 s  \\
+ bsort inline    &  medium   &  0.2660 s   &  0.2668 s            &
+ 0.0026 s  \\
+bsort inline    &  large    &  26.5490 s  &  26.5511 s           &  0.0266 s  \\
+\end{tabular}
 \end{center}
 
+These figures do indicate a performance decrease after refactoring
+the code to use separate. However, this is likely not a
+measurement of the overhead of function calls, but rather the overhead
+of dereferencing a pointer to the array each time. Changing to
+reference implementation to use a pointer to modify the array inside
+of the main function results in the following:
+
+\begin{center}
+\begin{tabular}{lllll}
+ Implementation  &  Size    &  Average    &  Median     &  Standard Deviation  \\
+ bsort pointer   &  small   &  0.1731 s   &  0.2046 s   &  0.1656 s            \\
+ bsort pointer   &  medium  &  0.2685 s   &  0.2693 s   &  0.0031 s            \\
+ bsort pointer   &  large   &  26.8550 s  &  26.8656 s  &  0.0692 s            \\
+\end{tabular}
+\end{center}
+
+These measurements are identical to the measurements above from the
+factored and inline versions, confirming that the slowdown is due to
+the additional pointer.
+
+One possible solution to this is to copy the array into a local
+variable at the start of the algorithm, perform the sorting on the
+local variable, and then copy the local variable back into the
+original array. This implementation resulted in the following speeds:
+
+\begin{center}
+\begin{tabular}{lllll}
+ Implementation     &  Size    &  Average    &  Median     &  Standard Deviation  \\
+ bsort pointer opt  &  medium  &  0.2723 s   &  0.2722 s   &  0.0061 s            \\
+ bsort pointer opt  &  small   &  0.1892 s   &  0.2287 s   &  0.1796 s            \\
+ bsort pointer opt  &  large   &  27.0129 s  &  26.9419 s  &  0.2426 s            \\
+\end{tabular}
+\end{center}
+
+\subsubsection{Summary}
+These measurements indicate that the optimal structuring of the
+program is to use local, automatic variables to store the array to be
+sorted. They also indicate that refactoring code to remove the body of
+the algorithm from the \texttt{main()} function is associated with
+some overhead. However, this overhead is due to dereferencing the
+pointer to the array to be sorted, rather than the function call
+itself. This overhead cannot be 
 
 \bibliography{writeup}
 \bibliographystyle{acm}

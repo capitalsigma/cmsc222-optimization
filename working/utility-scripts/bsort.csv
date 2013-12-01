@@ -1,0 +1,23 @@
+Implementation,Size,Average,Median,Standard Deviation
+bsort,medium,0.2220 s,0.2180 s,0.0085 s
+bsort,large,23.4886 s,23.5006 s,0.6830 s
+bsort,small,0.2238 s,0.2182 s,0.0093 s
+bsort factored,medium,0.2576 s,0.2586 s,0.0056 s
+bsort factored,small,0.1757 s,0.1966 s,0.1737 s
+bsort factored,large,26.2215 s,26.1377 s,0.3313 s
+bsort global,small,0.2475 s,0.3389 s,0.1960 s
+bsort global,large,30.6455 s,30.6182 s,0.4994 s
+bsort global,medium,0.3068 s,0.3111 s,0.0131 s
+bsort inline,medium,0.2660 s,0.2668 s,0.0026 s
+bsort inline,small,0.1976 s,0.3117 s,0.1594 s
+bsort inline,large,26.5490 s,26.5511 s,0.0266 s
+bsort malloc,medium,0.3300 s,0.3306 s,0.0132 s
+bsort malloc,small,0.3429 s,0.4268 s,0.1703 s
+bsort malloc,small,0.2854 s,0.3940 s,0.1898 s
+bsort malloc,large,32.0951 s,32.1063 s,0.4550 s
+bsort pointer,medium,0.2685 s,0.2693 s,0.0031 s
+bsort pointer,large,26.8550 s,26.8656 s,0.0692 s
+bsort pointer,small,0.1731 s,0.2046 s,0.1656 s
+bsort pointer opt,large,27.0129 s,26.9419 s,0.2426 s
+bsort pointer opt,small,0.1892 s,0.2287 s,0.1796 s
+bsort pointer opt,medium,0.2723 s,0.2722 s,0.0061 s
