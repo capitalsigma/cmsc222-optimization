@@ -8,26 +8,22 @@
 #include "error.h"
 #include "perf.h"
 #include "array_size.h"
-#include "worker_pool.h"
 
-int tmp[ARRAY_SIZE] = {0}; 
+
+int tmp[ARRAY_SIZE] = {}; 
 
 void merge(int **array, int lo, int mid, int hi)
 {
-	/* LOGGER(); */
-	/* int *tmp; */
-	/* handle(!(tmp = malloc(sizeof(int) * ((hi - lo) + 1)))); */
-	/* assert(tmp); */
+	LOGGER();
 	
 	/* i is our index for the left half */
 	/* j is for the right half */
 	/* k is for the temporary sorting (*array) */
-	int i = lo, j = mid + 1, k = 0;
+	int i = lo, j = mid + 1, k = lo;
 	while (i <= mid && j <= hi) {
 		tmp[k++] = (*array)[i] < (*array)[j] ? (*array)[i++] : (*array)[j++];
 	}
 	
-	/* PV(i); PV(j); */
 	while(i <= mid) {		
 		tmp[k++] = (*array)[i++];
 	}
@@ -36,11 +32,9 @@ void merge(int **array, int lo, int mid, int hi)
 	}
 
 	/* copy back */
-	memcpy(((*array) + lo), tmp, k * sizeof(int));
-	/* for(int m = 0; m < k; m++){ */
-	/* 	(*array)[lo + m] = tmp[m]; */
-	/* } */
-	/* free(tmp); */
+	for(int n = lo; n < k; n++){
+		(*array)[n] = tmp[n];
+	}
 }
 
 void mergesort(int **array, int lo, int hi)
@@ -79,10 +73,13 @@ int main(int argc, char *argv[])
   monitor_end(m);
  
   NOTIFY(print_array(&array, n, OUT_LINE_SIZE));
+
   assert(verify(&array, n));
 
+  free(array);
   
   monitor_print_stats(m, VERBOSE);
+  monitor_free(m);
 
   return 0;
 }

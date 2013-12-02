@@ -7,6 +7,9 @@
 
 
 #include "worker_pool.h"
+#include "error.h"
+#include "util.h"
+
 
 /* note: add in error handling later in life */
 
@@ -18,7 +21,8 @@ struct worker_pool {
 worker_pool* initialize_pool(int pool_size) 
 {
 	/* add error handling */
-	worker_pool *ret = malloc(sizeof(worker_pool));
+	worker_pool *ret;
+	HANDLE(!(ret = malloc(sizeof(worker_pool))));
 	
 	/* need to check this return value */
 	/* initialize the lock with a value of 1 as local to the process */
@@ -30,28 +34,26 @@ worker_pool* initialize_pool(int pool_size)
 
 void free_pool(worker_pool *pool)
 {
-	if(!sem_destroy(&pool->mutex)){
-		/* err handing */
-	}
+	HANDLE(sem_destroy(&pool->mutex));
 	
 	free(pool);
 }
 	
 
+
 bool request_worker(worker_pool *pool)
 {
 	assert(pool);
 
-	bool ret;
+	bool ret = false;
+
 	/* acquire a lock so we can safely check the number of free workers */
 	sem_wait(&pool->mutex);
-
+	
 	
 	if(pool->count){
-		--pool->count;
+		pool->count--;
 		ret = true;
-	} else {
-		ret = false;
 	}
 	
 	/* the check is done, release the lock */
@@ -60,12 +62,21 @@ bool request_worker(worker_pool *pool)
 	return ret;
 }
 
-void return_worker(worker_pool *pool)
+
+
+
+void return_worker(worker_pool *pool, pthread_t *thread)
 {
 	assert(pool);
+	assert(thread);
+
+
+	HANDLE(pthread_join(*thread, NULL));
 
 	sem_wait(&pool->mutex);
 	pool->count++;
 	sem_post(&pool->mutex);
+	
+	free(thread);
 }
 

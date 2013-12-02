@@ -10,6 +10,6 @@ void free_pool(worker_pool *pool);
 
 bool request_worker(worker_pool *pool);
 
-void return_worker(worker_pool *pool);
+void return_worker(worker_pool *pool, pthread_t *thread);
 
 

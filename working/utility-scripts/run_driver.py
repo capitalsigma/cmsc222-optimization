@@ -10,7 +10,7 @@ USAGE = '''{} executable #runs'''
 
 ENTRY_FORMAT = "%H:%M:%S"
 FILE_NAME_FORMAT = "%m-%d-{}.log".format(ENTRY_FORMAT)
-POOL_SIZE = 50
+#POOL_SIZE = 50
 
 
 def make_timestamp(fmt):
@@ -33,9 +33,9 @@ def do_run(n):
 def header(ex_path):
     return
 
-ex_path, runs = argv[1:]
+ex_path, runs, pool_size = argv[1:]
 f = open(set_file_name(ex_path), "w")
-p = Pool(POOL_SIZE)
+p = Pool(int(pool_size))
 print("Starting pool.")
 ans = p.map(do_run, range(0, int(runs)))
 print("Done, about to write to {}".format(set_file_name(ex_path)))
