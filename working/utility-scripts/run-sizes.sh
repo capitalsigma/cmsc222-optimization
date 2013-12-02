@@ -1,7 +1,5 @@
-for VAR in SMALL MEDIUM LARGE
+for VAR in SMALL MEDIUM LARGE XLARGE
 do
-	./comp-and-run.sh $1 $VAR 30
+	./comp-and-run.sh $1 $VAR 5
 done
-	
-	
-./comp-and-run.sh $1 XLARGE 10
+

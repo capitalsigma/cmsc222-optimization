@@ -13,12 +13,12 @@ def parse_entry(entry, regex):
             break
     # print(m.groups())
     t = m.groups()
-    return ".".join(t)
+    return ".".join([t[0], t[1].zfill(9)])
 
 
 def parse_file(file_handle):
     entries = file_handle.read().split('\n\n')
-    regex = re.compile("(?:User CPU time: )?(\d+) s, (\d+) us")
+    regex = re.compile("Wall time: (\d+) s, (\d+) ns")
     # print("Processing: ", entries)
     # print(len(entries))
     return [float(parse_entry(entry, regex)) for entry in entries]
@@ -53,7 +53,7 @@ def sort_by_size(ans_str):
     to_proc = ans_str[:-1].split("\n")
 #    print(to_proc)
     ret = []
-    for s in ["small", "medium", ",large", "xlarge"]:
+    for s in ["verysmall", "small", "medium", ",large", ",xlarge", "xxlarge"]:
         ret += list(filter(lambda x: s in x, to_proc))
     return "\n".join([ans_str[-1]] + ret)
 

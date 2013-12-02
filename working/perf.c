@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <sys/resource.h>
 #include <sys/time.h>
+#include <time.h>
 
 #include "perf.h"
 #include "error.h"
@@ -18,8 +19,13 @@
 
 typedef struct rusage rusage;
 typedef struct timeval timeval;
+typedef struct timespec timespec;
 
 typedef struct _monitor {
+	timespec wall_start;
+	timespec wall_end;
+	
+
 	/* rusage structs have a huge amount of info, we'll use this file */
 	/* to provide an interface to the parts that we care about */
 	rusage start;
@@ -56,9 +62,11 @@ monitor *monitor_init(monitor_target who)
 void do_action(monitor *m, action a)
 {
 	rusage *to_set = a == START ?  &m->start : &m->end;
+	timespec *to_set_wall = a == START ? &m->wall_start : &m->wall_end;
 
 	/* assert(!(*to_set)); */
 	HANDLE(getrusage(m->who, to_set) != 0);
+	HANDLE(clock_gettime(CLOCK_MONOTONIC, to_set_wall));
 }
 
 void monitor_start(monitor *m)
@@ -110,6 +118,23 @@ void rusage_sub(rusage *a, rusage *b, rusage *res)
 	res->ru_nivcsw = b->ru_nivcsw - a->ru_nivcsw;
 }
 
+void timespec_sub(timespec *a, timespec *b, timespec *res)
+{
+	timespec diff;
+
+	diff.tv_nsec = 0;
+
+	diff.tv_sec = difftime(b->tv_sec, a->tv_sec);
+
+	if(a->tv_nsec > b->tv_nsec){
+		diff.tv_sec -= 1;
+		diff.tv_nsec = a->tv_nsec - b->tv_nsec;
+	}
+		
+
+	*res = diff;
+}
+
 /* verbosity = SILENT, QUET, VERBOSE */
 /* 0: just print user CPU time */
 /* 1: print user CPU time + system CPU time */
@@ -118,8 +143,10 @@ void rusage_sub(rusage *a, rusage *b, rusage *res)
 void monitor_print_stats(monitor *m, verbosity v)
 {
 	rusage diff;
-	
+	timespec wall_diff;
+
 	rusage_sub(&m->start, &m->end, &diff);
+	timespec_sub(&m->wall_start, &m->wall_end, &wall_diff);
 	
 	if(v != SILENT){
 		printf("User CPU time: ");
@@ -145,4 +172,6 @@ void monitor_print_stats(monitor *m, verbosity v)
 
 		printf("Involuntary context switches: %li\n", diff.ru_nivcsw);
 	}
+
+	printf("Wall time: %li s, %li ns\n", (long)wall_diff.tv_sec, wall_diff.tv_nsec);
 }

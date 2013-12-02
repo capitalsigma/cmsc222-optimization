@@ -9,32 +9,32 @@
  
 int main()
 {
-  int c, d, k, sum = 0;
+	int c, d, k, sum = 0;
 
-  int size = MEDIUM;
-  int first[size][size], multiply[size][size];
+	int size = MEDIUM;
+	int first[size][size], multiply[size][size];
 
-  printf("Generating the matrix\n");
+	printf("Generating the matrix\n");
  
-  for (  c = 0 ; c < size ; c++ )
-    for ( d = 0 ; d < size ; d++ )
-      first[c][d] = ((c+d) % 2) - 1;
+	for (  c = 0 ; c < size ; c++ )
+		for ( d = 0 ; d < size ; d++ )
+			first[c][d] = ((c+d) % 2) - 1;
  
-  printf("multiplying the matrices\n  You should try to time this part.\n");
+	printf("multiplying the matrices\n  You should try to time this part.\n");
 
-      for ( c = 0 ; c < size ; c++ )
+	for ( c = 0 ; c < size ; c++ )
 	{
-	  for ( d = 0 ; d < size ; d++ )
-	    {
-	      for ( k = 0 ; k < size ; k++ )
+		for ( d = 0 ; d < size ; d++ )
 		{
-		  sum += first[c][k]*first[k][d];
-		}
+			for ( k = 0 ; k < size ; k++ )
+			{
+				sum += first[c][k]*first[k][d];
+			}
  
-	      multiply[c][d] = sum;
-	      sum = 0;
-	    }
+			multiply[c][d] = sum;
+			sum = 0;
+		}
 	}
  
-  return 0;
+	return 0;
 }

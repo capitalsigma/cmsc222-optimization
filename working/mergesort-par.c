@@ -11,7 +11,7 @@
 #include "array_size.h"
 #include "worker_pool.h"
 
-#define WORKER_THREADS 12
+//#define WORKER_THREADS 12
 
 typedef struct {
 	int **array;
@@ -19,7 +19,7 @@ typedef struct {
 	int hi;
 	worker_pool *wp;
 } args_t;
-	
+
 void *mergesort_p(void *args);
 
 int tmp[ARRAY_SIZE] = {}; 

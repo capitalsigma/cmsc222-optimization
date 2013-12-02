@@ -11,8 +11,6 @@
 #include "util.h"
 
 
-/* note: add in error handling later in life */
-
 struct worker_pool {
 	sem_t mutex;
 	int count;

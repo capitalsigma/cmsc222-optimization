@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
 
@@ -10,7 +11,7 @@
 void make_shift_mod_array(int **array, int size)
 {
 	for (int i = 0; i < size; i++){ 
-		(*array)[i] = (i << 6) % (17*17);		
+		(*array)[i] = abs((i << 6) % (17*17));
 	}
 }
 
