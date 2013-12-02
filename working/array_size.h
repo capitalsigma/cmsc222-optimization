@@ -9,7 +9,7 @@
 #define LARGE  4194304			/* 2^22 */
 #define XLARGE   67108864		  /* 2^26 */
 #define XXLARGE 268435456		  /* 2^28 */
-#define XXXLARGE INT_MAX
+#define XXXLARGE 1073741824		  /* 2^30 */
 
 #define ARRAY_SIZE 0
 

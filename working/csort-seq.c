@@ -9,7 +9,7 @@
 #include "perf.h"
 #include "array_size.h"
 
-#define RANGE 290
+
 
 int tmp[RANGE] = {0}; 
 
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
   HANDLE(!(array = malloc(n * sizeof(int)))); 
   monitor *m;
   
-  make_array(&array, n, ARRAY_ALGO); 
+  make_array(&array, n, ARRAY_ALGO, RANGE); 
   NOTIFY(print_array(&array, n, OUT_LINE_SIZE));
 
   m = monitor_init(SELF);

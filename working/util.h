@@ -27,7 +27,7 @@
 typedef enum {SHIFT_MOD} algo_t;
 
 
-void make_array(int **array, int size, algo_t algo);
+void make_array(int **array, int size, algo_t algo, int range);
 
 bool verify(int **array, int size);
 

@@ -1,2 +1,29 @@
 processor info:
 http://pcpartpicker.com/part/amd-cpu-fd6300wmhkbox
+
+
+
+gcc  -o mmult-omp--.out -ggdb -pthread -Wall -O3 -std=c11 -fopenmp -D_SIZE  mmult-omp.c util.c perf.c
+➜  working git:(master) ✗ ./mmult-omp--.out 
+User CPU time: 1325 s, 383976 us
+System CPU time: 10 s, 598097 us
+Maximum resident size (KB): 77848
+Page faults serviced without IO: 19464
+Page faults erviced with IO: 0
+Instances of input: 0
+Instnaces of output: 0
+Voluntary context switches: 26
+Involuntary context switches: 134272
+Wall time: 320 s, 0 ns
+
+➜  working git:(master) ✗ ./mmult-seq--.out 
+User CPU time: 784 s, 331454 us
+System CPU time: 0 s, 138913 us
+Maximum resident size (KB): 77880
+Page faults serviced without IO: 19434
+Page faults erviced with IO: 0
+Instances of input: 0
+Instnaces of output: 0
+Voluntary context switches: 0
+Involuntary context switches: 67054
+Wall time: 785 s, 377696166 ns

@@ -5,15 +5,15 @@
 #include <string.h>
 #include <stdbool.h>
 #include <pthread.h>
+#include <semaphore.h>
 
 #include "util.h"
 #include "error.h"
 #include "perf.h"
 #include "array_size.h"
 
-#define RANGE 289
 
-int tmp[RANGE + 1] = {};
+sem_t tmp[RANGE + 1] = {};
 
 typedef struct {
 	int **array;
@@ -41,15 +41,16 @@ void free_args(args_t *args)
 void populate_tmp(int **array, int start, int end)
 {
 	for(int i = start; i < end; i++){
-		__sync_fetch_and_add(&tmp[(*array)[i]], 1);
+		sem_post(&tmp[(*array)[i]]);
 	}
 }
 
 void unroll_tmp(int **array, int range)
 {
-	int counter = 0;
+	int counter = 0, current = 0;
 	for(int i = 0; i < range; i++){
-		while(tmp[i]--){
+		sem_getvalue(&tmp[i], &current);
+		while(current--){
 			(*array)[counter++] = i;
 		}
 	}
@@ -77,6 +78,10 @@ void csort(int *array, int size)
 	int end = 0;
 	int i;
 	
+	/* initialize the tmp array */
+	for(i = 0; i < RANGE + 1; i++){
+		sem_init(&tmp[i], 0, 0);
+	}
 
 	/* partition the work */
 	for(i = 0; i < WORKER_THREADS; i ++){
@@ -124,8 +129,10 @@ int main(int argc, char *argv[])
 
   assert(verify(&array, n));
 
+
   free(array);
   
+
   monitor_print_stats(m, VERBOSE);
   monitor_free(m);
 

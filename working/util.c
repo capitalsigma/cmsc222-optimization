@@ -8,24 +8,24 @@
 #define MAX_INT_LEN 15
 
 
-void make_shift_mod_array(int **array, int size)
+void make_shift_mod_array(int **array, int size, int range)
 {
 	for (int i = 0; i < size; i++){ 
-		(*array)[i] = abs((i << 6) % (17*17));
+		(*array)[i] = abs((i << 6) % (range));
 	}
 }
 
-void make_array(int **array, int size, algo_t algo) 
+void make_array(int **array, int size, algo_t algo, int range) 
 {
 	NOTIFY(printf("Generating %d integers\n", size));
 
 	/* array of function pointers makes our life easier */
-	void (*f[1]) (int **a, int s) =
+	void (*f[1]) (int **a, int s, int r) =
 		{
 			make_shift_mod_array
 		};
 	
-	f[algo](array, size);	
+	f[algo](array, size, range);	
 }
 
 
