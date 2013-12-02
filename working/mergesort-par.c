@@ -11,7 +11,7 @@
 #include "array_size.h"
 #include "worker_pool.h"
 
-#define WORKER_THREADS 1
+#define WORKER_THREADS 12
 
 typedef struct {
 	int **array;

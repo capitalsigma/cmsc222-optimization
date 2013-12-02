@@ -26,7 +26,7 @@ worker_pool* initialize_pool(int pool_size)
 	
 	/* need to check this return value */
 	/* initialize the lock with a value of 1 as local to the process */
-	sem_init(&ret->mutex, 0, 1);
+	sem_init(&ret->mutex, 0, pool_size);
 	ret->count = pool_size;
 
 	return ret;
@@ -45,21 +45,21 @@ bool request_worker(worker_pool *pool)
 {
 	assert(pool);
 
-	bool ret = false;
 
+	return sem_trywait(&pool->mutex) == 0;
 	/* acquire a lock so we can safely check the number of free workers */
-	sem_wait(&pool->mutex);
+	/* sem_wait(&pool->mutex); */
 	
 	
-	if(pool->count){
-		pool->count--;
-		ret = true;
-	}
+	/* if(pool->count){ */
+	/* 	pool->count--; */
+	/* 	ret = true; */
+	/* } */
 	
 	/* the check is done, release the lock */
-	sem_post(&pool->mutex);
+	/* sem_post(&pool->mutex); */
 	
-	return ret;
+	/* return ret; */
 }
 
 
@@ -73,8 +73,6 @@ void return_worker(worker_pool *pool, pthread_t *thread)
 
 	HANDLE(pthread_join(*thread, NULL));
 
-	sem_wait(&pool->mutex);
-	pool->count++;
 	sem_post(&pool->mutex);
 	
 	free(thread);
