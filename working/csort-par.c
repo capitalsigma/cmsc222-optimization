@@ -11,8 +11,6 @@
 #include "perf.h"
 #include "array_size.h"
 
-#define RANGE 289
-
 int tmp[RANGE + 1] = {};
 
 typedef struct {

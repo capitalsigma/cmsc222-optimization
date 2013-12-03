@@ -27,3 +27,186 @@ Instnaces of output: 0
 Voluntary context switches: 0
 Involuntary context switches: 67054
 Wall time: 785 s, 377696166 ns
+
+
+Implementation,Size,Average,Median,Standard Deviation
+mergesort par 2,large,0.1848 s,0.0000 s,0.3289 s
+mergesort par 4,large,0.1428 s,0.0000 s,0.3051 s
+mergesort par 6,large,0.1625 s,0.0000 s,0.3252 s
+mergesort par 8,large,0.1605 s,0.0000 s,0.3215 s
+mergesort par 10,large,0.1408 s,0.0000 s,0.3012 s
+mergesort par 12,large,0.1546 s,0.0000 s,0.3115 s
+mergesort par 14,large,0.1600 s,0.0000 s,0.3203 s
+mergesort par 16,large,0.1768 s,0.0000 s,0.3332 s
+mergesort par 18,large,0.1701 s,0.0000 s,0.3211 s
+mergesort par 20,large,0.2001 s,0.0000 s,0.3382 s
+mergesort par 22,large,0.1822 s,0.0000 s,0.3248 s
+mergesort par 24,large,0.1940 s,0.0000 s,0.3280 s
+mergesort par 26,large,0.1757 s,0.0000 s,0.3137 s
+mergesort par 28,large,0.1973 s,0.0000 s,0.3176 s
+mergesort par 30,large,0.2003 s,0.0000 s,0.3235 s
+mergesort par 32,large,0.2331 s,0.0000 s,0.3281 s
+mergesort par 34,large,0.2236 s,0.0000 s,0.3173 s
+mergesort par 36,large,0.1976 s,0.0000 s,0.3046 s
+mergesort par 38,large,0.1944 s,0.0000 s,0.3000 s
+mergesort par 2,xlarge,3.4553 s,3.0593 s,0.5155 s
+mergesort par 4,xlarge,2.9820 s,3.0000 s,0.4822 s
+mergesort par 6,xlarge,2.3354 s,2.1687 s,0.3722 s
+mergesort par 8,xlarge,2.3066 s,2.2245 s,0.3759 s
+mergesort par 10,xlarge,2.4475 s,2.4179 s,0.5019 s
+mergesort par 12,xlarge,2.2937 s,2.0000 s,0.4411 s
+mergesort par 14,xlarge,2.5491 s,2.3162 s,0.5451 s
+mergesort par 16,xlarge,2.9614 s,3.0000 s,0.5531 s
+mergesort par 18,xlarge,3.1358 s,3.0000 s,0.4826 s
+mergesort par 20,xlarge,3.1215 s,3.0643 s,0.6395 s
+mergesort par 22,xlarge,3.1138 s,3.0933 s,0.7993 s
+mergesort par 24,xlarge,3.2745 s,3.2388 s,0.9116 s
+mergesort par 26,xlarge,2.7170 s,2.3227 s,0.8581 s
+mergesort par 28,xlarge,2.9161 s,2.3688 s,1.0347 s
+mergesort par 30,xlarge,3.0384 s,2.4190 s,1.2166 s
+mergesort par 32,xlarge,2.9279 s,3.0000 s,0.9387 s
+mergesort par 34,xlarge,3.0896 s,3.0000 s,0.7827 s
+mergesort par 36,xlarge,3.5687 s,3.2937 s,0.9186 s
+mergesort par 38,xlarge,3.4553 s,3.0626 s,0.7782 s
+mergesort par 16,xxlarge,13.2893 s,13.0762 s,0.9961 s
+mergesort par 18,xxlarge,14.0146 s,14.0141 s,0.9845 s
+mergesort par 20,xxlarge,13.9357 s,14.0421 s,1.8193 s
+mergesort par 22,xxlarge,12.9159 s,13.0000 s,2.1564 s
+mergesort par 24,xxlarge,11.5415 s,11.0000 s,2.2646 s
+mergesort par 26,xxlarge,11.4277 s,10.0000 s,2.6742 s
+mergesort par 28,xxlarge,12.3660 s,11.0000 s,3.0040 s
+mergesort par 30,xxlarge,12.3035 s,11.0000 s,2.7740 s
+mergesort par 34,xxlarge,14.3556 s,13.0000 s,2.9419 s
+mergesort par 36,xxlarge,14.0130 s,13.3280 s,2.2762 s
+
+
+
+Implementation,Size (n),Average,Median,Standard Deviation
+mmult seq ,100,3.6504 s,2.2446 s,3.0339 s
+mmult par,100,0.0000 s,0.0000 s,0.0000 s
+mmult seq ,500,3.5555 s,2.2974 s,2.7335 s
+mmult par,500,0.0481 s,0.0000 s,0.2095 s
+mmult seq ,750,3.7585 s,2.3011 s,2.4344 s
+mmult par,750,0.1331 s,0.0000 s,0.3168 s
+mmult seq ,1000,3.8744 s,2.5344 s,2.9490 s
+mmult par,1000,0.2529 s,0.0000 s,0.2833 s
+mmult seq ,2000,3.8076 s,2.2067 s,2.6520 s
+mmult par,2000,3.1426 s,3.0000 s,0.5568 s
+mmult seq ,3000,3.7991 s,3.0266 s,1.7908 s
+mmult par,3000,7.6652 s,8.0000 s,0.5213 s
+mmult seq ,4000,3.7480 s,2.2377 s,3.2201 s
+mmult par,4000,19.3018 s,19.1435 s,0.9108 s
+mmult seq ,3000,3.7991 s,3.0266 s,1.7908 s
+mmult par,3000,7.6652 s,8.0000 s,0.5213 s
+mmult seq ,7500,3.5604 s,2.2156 s,2.4433 s
+mmult par,7500,136.3460 s,136.1052 s,5.9590 s
+
+
+
+==6378== Cachegrind, a cache and branch-prediction profiler
+==6378== Copyright (C) 2002-2012, and GNU GPL'd, by Nicholas Nethercote et al.
+==6378== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==6378== Command: ./mmult-seq-LARGER_MEDIUM.out
+==6378== 
+--6378-- warning: L3 cache found, using its data for the L2 simulation.
+User CPU time: 94 s, 862166 us
+System CPU time: 0 s, 51908 us
+Maximum resident size (KB): 0
+Page faults serviced without IO: 5
+Page faults erviced with IO: 0
+Instances of input: 0
+Instnaces of output: 0
+Voluntary context switches: 0
+Involuntary context switches: 9151
+Wall time: 95 s, 0 ns
+==6378== 
+==6378== I   refs:      7,011,644,664
+==6378== I1  misses:            1,011
+==6378== LLi misses:              988
+==6378== I1  miss rate:          0.00%
+==6378== LLi miss rate:          0.00%
+==6378== 
+==6378== D   refs:      3,001,450,864  (3,000,122,877 rd   + 1,327,987 wr)
+==6378== D1  misses:    1,189,838,966  (1,188,773,231 rd   + 1,065,735 wr)
+==6378== LLd misses:          128,476  (        2,117 rd   +   126,359 wr)
+==6378== D1  miss rate:          39.6% (         39.6%     +      80.2%  )
+==6378== LLd miss rate:           0.0% (          0.0%     +       9.5%  )
+==6378== 
+==6378== LL refs:       1,189,839,977  (1,188,774,242 rd   + 1,065,735 wr)
+==6378== LL misses:           129,464  (        3,105 rd   +   126,359 wr)
+==6378== LL miss rate:            0.0% (          0.0%     +       9.5%  )
+
+➜  working git:(master) ✗ valgrind --tool=cachegrind ./mmult-sym-omp-LARGER_MEDIUM.out  
+==1927== Cachegrind, a cache and branch-prediction profiler
+==1927== Copyright (C) 2002-2012, and GNU GPL'd, by Nicholas Nethercote et al.
+==1927== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==1927== Command: ./mmult-sym-omp-LARGER_MEDIUM.out
+==1927== 
+--1927-- warning: L3 cache found, using its data for the L2 simulation.
+User CPU time: 1584 s, 565384 us
+System CPU time: 6 s, 570423 us
+Maximum resident size (KB): 5544
+Page faults serviced without IO: 1349
+Page faults erviced with IO: 0
+Instances of input: 0
+Instnaces of output: 0
+Voluntary context switches: 679645
+Involuntary context switches: 351373
+Wall time: 1576 s, 0 ns
+==1927== 
+==1927== I   refs:      189,470,196,208
+==1927== I1  misses:              1,234
+==1927== LLi misses:              1,205
+==1927== I1  miss rate:            0.00%
+==1927== LLi miss rate:            0.00%
+==1927== 
+==1927== D   refs:       54,129,593,701  (54,082,303,124 rd   + 47,290,577 wr)
+==1927== D1  misses:      3,397,260,441  ( 3,378,724,797 rd   + 18,535,644 wr)
+==1927== LLd misses:      1,442,441,761  ( 1,441,866,257 rd   +    575,504 wr)
+==1927== D1  miss rate:             6.2% (           6.2%     +       39.1%  )
+==1927== LLd miss rate:             2.6% (           2.6%     +        1.2%  )
+==1927== 
+==1927== LL refs:         3,397,261,675  ( 3,378,726,031 rd   + 18,535,644 wr)
+==1927== LL misses:       1,442,442,966  ( 1,441,867,462 rd   +    575,504 wr)
+==1927== LL miss rate:              0.5% (           0.5%     +        1.2%  )
+
+
+Implementation,Size,Average,Median,Standard Deviation
+s
+csort new 4,medium,0.0000 s,0.0000 s,0.0000 s
+csort new 6,medium,0.0494 s,0.0000 s,0.2155 s
+csort new 8,medium,0.0000 s,0.0000 s,0.0000 s
+csort par 4,medium,0.0000 s,0.0000 s,0.0000 s
+csort par 6,medium,0.0000 s,0.0000 s,0.0000 s
+csort par 8,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort seq ,medium,0.0000 s,0.0000 s,0.0000 s
+csort new 4,xlarge,1.2769 s,1.3795 s,0.2075 s
+csort new 6,xlarge,1.2205 s,1.0000 s,0.3378 s
+csort new 8,xlarge,1.2672 s,1.0000 s,0.3652 s
+csort par 4,xlarge,4.1434 s,4.0000 s,0.5776 s
+csort par 6,xlarge,4.1936 s,4.0000 s,0.2171 s
+csort par 8,xlarge,4.2367 s,4.2004 s,0.2412 s
+csort seq ,xlarge,0.0783 s,0.0000 s,0.2348 s
+csort seq ,xlarge,0.0000 s,0.0000 s,0.0000 s
+csort seq ,xlarge,0.2354 s,0.0000 s,0.3595 s
+csort seq ,xlarge,0.0000 s,0.0000 s,0.0000 s
+csort seq ,xlarge,0.0000 s,0.0000 s,0.0000 s
+csort seq ,xlarge,0.0390 s,0.0000 s,0.1699 s
+csort seq ,xlarge,0.2349 s,0.0000 s,0.3589 
+csort new 4,xxlarge,5.1712 s,5.2269 s,0.1334 s
+csort new 6,xxlarge,4.5868 s,4.2496 s,0.5785 s
+csort new 8,xxlarge,4.2125 s,4.2479 s,0.1451 s
+csort seq ,xxlarge,0.1123 s,0.1321 s,0.0472 s
+csort seq ,xxlarge,0.1120 s,0.1345 s,0.0475 s
+csort seq ,xxlarge,0.1526 s,0.1710 s,0.0517 s
+csort seq ,xxlarge,0.1291 s,0.1334 s,0.0494 s
+csort seq ,xxlarge,0.1088 s,0.1296 s,0.0463 s
+csort seq ,xxlarge,0.1174 s,0.1310 s,0.0395 s
+csort seq ,xxxlarge,3.2424 s,3.0000 s,0.2681 s 

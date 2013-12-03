@@ -53,7 +53,10 @@ def sort_by_size(ans_str):
     to_proc = ans_str[:-1].split("\n")
 #    print(to_proc)
     ret = []
-    for s in ["verysmall", "small", "medium", ",large", ",xlarge", "xxlarge"]:
+    for s in ["verysmall", "small,", ",smaller_medium,",
+              ",small_medium,",  ",medium",
+              ",large_medium,", "larger_medium",
+              "small_large", ",large ", "larger", ",xlarge", "xxlarge"]:
         ret += list(filter(lambda x: s in x, to_proc))
     return "\n".join([ans_str[-1]] + ret)
 

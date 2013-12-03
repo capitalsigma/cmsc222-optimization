@@ -23,6 +23,7 @@
 
 #define OUT_LINE_SIZE 80
 #define ARRAY_ALGO SHIFT_MOD
+#define RANGE 17 * 17
 
 typedef enum {SHIFT_MOD} algo_t;
 

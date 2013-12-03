@@ -13,20 +13,18 @@ void multiply_matrix_symm_transp(int *first, int *result, int size)
 {
 	register int c, d, k;
 	int *arow, *brow, *ans;
-#pragma omp parallel for shared(first, result, ans) private(c, d, k, arow, brow)
+#pragma omp parallel for  shared(first, result, ans) private(c, d, k, arow, brow)
 	for ( c = 0 ; c < size ; c++ )
 	{
 		for ( d = 0 ; d < size ; d++ )
 		{
 			arow = get_cell(first, c, 0, size);
 			brow = get_cell(first, d, 0, size);
-/* #pragma omp parallel for shared(first, result) private(k) reduction(+:sum) */
 			ans = get_cell(result, c, d, size);
 			for ( k = 0 ; k < size; k++ )
 			{
-				ans += *(arow + k) * *(brow + k);
+				*ans += *(arow + k) * *(brow + k);
 			}
-			/* *get_cell(result, c, d, size) = sum; */
 		}
 	}
 }

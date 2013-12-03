@@ -13,23 +13,22 @@ check-syntax:
 	$(CC) -o nul.out  $(CFLAGS) -fopenmp -S $(CHK_SOURCES)
 
 mmult-seq:
-	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(DEPS) 
+	$(CC) -o $@-$(1).out $(CFLAGS) -fopenmp -DOVERRIDE_SIZE=$1  $@.c $(DEPS) 
 
-
-mmult-omp:
-	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(M_DEPS) 
+mmult-sym-omp:
+	$(CC) -o $@-$(1).out $(CFLAGS) -fopenmp -DOVERRIDE_SIZE=$1  $@.c $(M_DEPS) 
 
 mmult-%:
 	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(M_DEPS) 
 
 %-omp:
-	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(PAR_DEPS) -DRANGE=$(3)
+	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(PAR_DEPS)
 
 %-seq:
-	$(CC) -o $@-$(1)-$(3).out $@.c $(DEPS) $(CFLAGS) -D$(1)_SIZE  -DRANGE=$(3)
+	$(CC) -o $@-$(1).out $@.c $(DEPS) $(CFLAGS) -D$(1)_SIZE 
 
 %-par:
-	$(CC) -o $@-$(1)-$(2)-$(3).out $(CFLAGS) -D$(1)_SIZE -DRANGE=$(3) -DWORKER_THREADS=$(2) $@.c $(PAR_DEPS) 
+	$(CC) -o $@-$(1)-$(2).out $(CFLAGS) -D$(1)_SIZE -DWORKER_THREADS=$(2) $@.c $(PAR_DEPS) 
 
 # mergesort-% : 
 # 	$(CC) -o $@-$(1).out $@.c $(DEPS) $(CFLAGS) -D$(1)_SIZE 

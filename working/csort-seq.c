@@ -13,12 +13,9 @@
 
 int tmp[RANGE] = {0}; 
 
-
-
 void populate_tmp(int *array, int n)
 {
 	for(int i = 0; i < n; i++){
-		/* PV(i); */
 		tmp[array[i]]++;
 	}
 }
@@ -36,7 +33,6 @@ void unroll_tmp(int *array, int range)
 void csort(int *array, int size)
 {
 	populate_tmp(array, size);
-	
 	unroll_tmp(array, RANGE);
 }
 
