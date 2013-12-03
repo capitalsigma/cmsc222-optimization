@@ -8,6 +8,8 @@
 \usepackage{algpseudocode}
 \usepackage{program}
 \usepackage{listings} 
+\usepackage{graphicx}
+% \usepackage{amsmath}
 % \usepackage{algorithm}
 % \usepackage{algorithmic}
 
@@ -585,18 +587,18 @@ listed side by side. 20 runs were conducted at each size for each program.
 \begin{center}
 \begin{tabular}{lrlll}
  Implementation  &  Size (n)  &  Average   &  Median    &  Standard Deviation  \\
- mmult seq       &       100  &  3.6504 s  &  2.2446 s  &  3.0339 s            \\
- mmult par       &       100  &  0.0000 s  &  0.0000 s  &  0.0000 s            \\
- mmult seq       &       500  &  3.5555 s  &  2.2974 s  &  2.7335 s            \\
- mmult par       &       500  &  0.0481 s  &  0.0000 s  &  0.2095 s            \\
- mmult seq       &       750  &  3.7585 s  &  2.3011 s  &  2.4344 s            \\
- mmult par       &       750  &  0.1331 s  &  0.0000 s  &  0.3168 s            \\
- mmult seq       &      1000  &  3.8744 s  &  2.5344 s  &  2.9490 s            \\
- mmult par       &      1000  &  0.2529 s  &  0.0000 s  &  0.2833 s            \\
- mmult seq       &      2000  &  3.8076 s  &  2.2067 s  &  2.6520 s            \\
- mmult par       &      2000  &  3.1426 s  &  3.0000 s  &  0.5568 s            \\
- mmult seq       &      3000  &  3.7991 s  &  3.0266 s  &  1.7908 s            \\
- mmult par       &      3000  &  7.6652 s  &  8.0000 s  &  0.5213 s            \\
+ sequential       &       100  &  3.6504 s  &  2.2446 s  &  3.0339 s            \\
+ \textbf{parallel}       &       100  &  0.0000 s  &  0.0000 s  &  0.0000 s            \\
+ sequential       &       500  &  3.5555 s  &  2.2974 s  &  2.7335 s            \\
+\textbf{parallel}      &       500  &  0.0481 s  &  0.0000 s  &  0.2095 s            \\
+ sequential       &       750  &  3.7585 s  &  2.3011 s  &  2.4344 s            \\
+ \textbf{parallel}       &       750  &  0.1331 s  &  0.0000 s  &  0.3168 s            \\
+ sequential       &      1000  &  3.8744 s  &  2.5344 s  &  2.9490 s            \\
+ \textbf{parallel}       &      1000  &  0.2529 s  &  0.0000 s  &  0.2833 s            \\
+ \textbf{sequential}       &      2000  &  3.8076 s  &  2.2067 s  &  2.6520 s            \\
+ parallel       &      2000  &  3.1426 s  &  3.0000 s  &  0.5568 s            \\
+ \textbf{sequential}       &      3000  &  3.7991 s  &  3.0266 s  &  1.7908 s            \\
+ parallel       &      3000  &  7.6652 s  &  8.0000 s  &  0.5213 s            \\
 \end{tabular}
 \end{center}
 
@@ -644,7 +646,55 @@ to have defeated the prefetch buffer and caused L2 cache misses,
 resulting in the severe loss in performance that was observed.
 
 \section{Conclusion}
-All c
+All code is available on the Github repository
+https://github.com/capitalsigma/cmsc222-optimization.
+
+Having examined the impact of multithreading on performance in a
+variety of different situations and implementations, the question
+remains: how much more performance can be gained through the addition
+of more threads and more cores?
+
+The data collected do not, on the whole, support any one clear
+answer. It appears that secondary factors like choice of algorithm and
+cache capacity dominate in most situations. Furthermore, the
+performance benefit of each additional thread has rarely proven to be
+linear. The best data collected in order to perform this comparison,
+however, is likely the parallel mergesort data. Below is a graph of
+the percentage improvement per additional thread used in the mergesort
+algorithm, relative to the singlethreaded version ($1 -(t_n \div
+t_1)$):
+
+\DeclareGraphicsExtensions{.png}
+\begin{center}
+\includegraphics{gains-large.png}
+\includegraphics{gains-xlarge-nolegend.png}
+\includegraphics{gains-xxlarge-nolegend.png}
+\end{center}
+
+The data demonstrate that merely extending the program to more threads
+is not an effective method of increasing performance: each achieves a
+maximum at some particular threadcount and then declines. The
+particular threadcount at which the maximum speed is achieved also
+varies for each array size. Assuming that the ideal configuration is
+expressible in terms of threads per core, we arrive at the following
+approximations regarding the \% performance gain per thread-core
+under ideal circumstances:
+
+\begin{eqnarray*}
+&\textrm{Gain/thread $\times$ core}_{\textrm{size}} =& \frac {\textrm{max
+    gain} * \textrm{cores}} {\textrm{optimum threads}}\\
+&\textrm{Gain/thread $\times$ core}_\textrm{large} =& 36.513\%\\
+&\textrm{Gain/thread $\times$ core}_\textrm{xlarge} =& 32.810\%\\
+&\textrm{Gain/thread $\times$ core}_\textrm{xxlarge} =& 13.867\%\\
+\end{eqnarray*}
+
+The last measurement is likely an outlier, as the dataset for the
+xxlarge array size is less complete. The previous two measurements
+appear to agree, however: at the point of maximum performance gain,
+integer sorting occurs approximately 30\% faster per thread per core
+in a multithreaded environment than in a singlethreaded
+one. 
+
 
 \bibliography{writeup}
 \bibliographystyle{acm}

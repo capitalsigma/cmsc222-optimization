@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
   HANDLE(!(array = malloc(n * sizeof(int)))); 
   monitor *m;
   
-  make_array(&array, n, ARRAY_ALGO); 
+  make_array(&array, n, ARRAY_ALGO, 17 * 17); 
   NOTIFY(print_array(&array, n, OUT_LINE_SIZE));
 
   m = monitor_init(SELF);
