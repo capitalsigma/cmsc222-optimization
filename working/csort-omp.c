@@ -17,9 +17,9 @@ int tmp[RANGE] = {0};
 
 void populate_tmp(int *array, int n)
 {
+#pragma omp parallel for default(shared) private(i) 
 	for(int i = 0; i < n; i++){
-
-		__sync_add_and_fetch(&tmp[array[i]], 1);
+		tmp[array[i]];
 	}
 }
 

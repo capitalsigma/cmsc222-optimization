@@ -1,6 +1,6 @@
 # CHK_SOURCES=bsort.c $(DEPS) $(DEPS_HEADERS)
 DEPS=util.c perf.c
-
+M_DEPS = util.c perf.c matrix_util.c
 PAR_DEPS = util.c perf.c worker_pool.c atomic_int.c
 MALLOC_DEPS=util-malloc.c perf.c
 # DEPS_HEADERS=worker_pool.h util.h perf.h
@@ -12,11 +12,15 @@ size_macro = $(lastword $(subst -, ,$(1)))_SIZE
 check-syntax:
 	$(CC) -o nul.out  $(CFLAGS) -fopenmp -S $(CHK_SOURCES)
 
+mmult-seq:
+	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(DEPS) 
+
+
 mmult-omp:
-	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(DEPS)
+	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(M_DEPS) 
 
 mmult-%:
-	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(DEPS)
+	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(M_DEPS) 
 
 %-omp:
 	$(CC) -o $@-$(1)-$(3).out $(CFLAGS) -fopenmp -D$(1)_SIZE  $@.c $(PAR_DEPS) -DRANGE=$(3)
